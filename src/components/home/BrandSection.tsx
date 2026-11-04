@@ -1,6 +1,8 @@
-import { BookOpen, Compass, Headphones, Layers, Lock, Mail, ShieldCheck, Sparkles, Target } from 'lucide-react';
+import { ArrowRight, BookOpen, Compass, Headphones, Layers, Lock, Mail, ShieldCheck, Sparkles, Target } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { buttonStyles } from '@/components/ui/Button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Link } from '@/lib/router';
 
 const PILLARS: { icon: LucideIcon; title: string; description: string }[] = [
   {
@@ -20,6 +22,21 @@ const PILLARS: { icon: LucideIcon; title: string; description: string }[] = [
     title: 'Evolução contínua',
     description:
       'Um catálogo que cresce com temas de desenvolvimento pessoal, carreira, finanças e estudos, sempre com conteúdo revisado.',
+  },
+];
+
+const HOW_IT_WORKS: { title: string; description: string }[] = [
+  {
+    title: 'Escolha o material',
+    description: 'Navegue pelo catálogo e abra a página de cada produto para ver o que está incluído e o preço.',
+  },
+  {
+    title: 'Finalize a compra',
+    description: 'O pagamento é feito no checkout seguro indicado em cada produto. Seus dados ficam protegidos nessa plataforma.',
+  },
+  {
+    title: 'Receba o acesso',
+    description: 'O material digital é liberado depois que o pagamento é confirmado.',
   },
 ];
 
@@ -53,6 +70,16 @@ export function BrandSection({ eyebrow, title, description }: BrandSectionProps)
       <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-20">
         <div className="flex flex-col gap-6">
           <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link to="/produtos" className={buttonStyles({ size: 'lg' })}>
+              Explorar produtos
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+            <a href="mailto:edvora.suporte@gmail.com" className={buttonStyles({ variant: 'secondary', size: 'lg' })}>
+              <Mail className="size-4" aria-hidden="true" />
+              Falar com o suporte
+            </a>
+          </div>
           <div className="flex items-start gap-4 rounded-2xl bg-brand-50/60 p-5 ring-1 ring-brand-100">
             <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-soft">
               <Compass className="size-5" aria-hidden="true" />
@@ -64,6 +91,23 @@ export function BrandSection({ eyebrow, title, description }: BrandSectionProps)
                 decisão certa.
               </p>
             </div>
+          </div>
+
+          <div className="flex flex-col gap-4 rounded-2xl bg-white p-5 shadow-soft ring-1 ring-ink-200/70">
+            <p className="text-sm font-bold text-ink-900">Como funciona a compra</p>
+            <ol className="flex flex-col gap-4">
+              {HOW_IT_WORKS.map(({ title, description }, index) => (
+                <li key={title} className="flex gap-4">
+                  <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-800">
+                    {index + 1}
+                  </span>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-sm font-semibold text-ink-900">{title}</p>
+                    <p className="text-sm leading-relaxed text-ink-500">{description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
 
